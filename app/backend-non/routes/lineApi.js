@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models/lineApi");
 
-router.get("/autoMessage", (req, res, next) => {
+router.post("/autoMessage", (req, res, next) => {
     
   models.autoMessage(req).then((rs)=>{
     res.status(200);

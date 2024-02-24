@@ -1,32 +1,63 @@
+const {fnLineApi} = require("../function/lineApi");
+
 module.exports = {
   async autoMessage(req, res) {
     try {
 
-      return `ok`;
+      // copy Channel access token ตอนที่ตั้งค่ามาใส่
+      const accessToken = process.env.LINE_MANON_TOKEN; 
+
+      // input
+      const arrayJson = req.body;
+      const message = arrayJson.events[0].message.text;
+      const replyToken = arrayJson.events[0].replyToken;
+
+      //set data
+      let arrayPostData = {};
+
+      // ตัวอย่าง Message Type "Text"
+      if (message === "คำนวณวันครบรอบ") {
+
+        const calDate = await fnLineApi.calulateDateFormStart(req);
+
+        arrayPostData = {
+          "replyToken": replyToken,
+          "messages": [
+            {
+              "type": "text",
+              "text": calDate
+            }
+          ]
+        }
+      } else {
+        arrayPostData = {
+          "replyToken": replyToken,
+          "messages": [
+            {
+              "type": "text",
+              "text": "ไม่พบข้อมูล"
+            },
+          ]
+        }
+      }
+
+      // replyMessage
+      fnLineApi.autoMessage.replyMessage(accessToken, arrayPostData);
+
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
+  },
+  async calulateDateFormStart(req, res) {
+    try {
+
+      const calDate = fnLineApi.calulateDateFormStart(req);
+
+      return calDate;
 
     } catch (err) {
       return err;
     }
   },
-    async calulateDateFormStart(req, res) {
-      try {
-
-        const strDate = req.params.date;
-
-        const currentDate = new Date();
-        const inputDate = new Date(strDate);
-
-        const diffTime = Math.abs(currentDate - inputDate);
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-        const years = Math.floor(diffDays / 365);
-        const months = Math.floor((diffDays % 365) / 30);
-        const days = (diffDays % 365) % 30;
-
-        return `${years} ปี ${months} เดือน ${days} วัน`;
-
-      } catch (err) {
-        return err;
-      }
-    },
 };

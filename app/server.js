@@ -16,14 +16,25 @@ const cookieParser = require("cookie-parser");
 // const port = process.env.PORT;
 const app = express();
 const path = require("path");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 // Add middleware to authenticate requests
 // app.use(myMiddleware);
+
+app.use(cors());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
+
+// parse application/json
+app.use(bodyParser.json());
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-// app.listen(port, () => {
-// app.listen(45060, () => {
-//   console.log("Server is listening on port " + 45060);
-// });
+
+app.listen(45060, () => {
+  console.log("Server is listening on port " + 45060);
+});
 
 // enable CORS
 app.use((req, res, next) => {

@@ -14,7 +14,7 @@ module.exports = {
     "comma-dangle": 0,
     "no-restricted-globals": ["error", "name", "length"],
     "prefer-arrow-callback": "error",
-    "quotes": ["error", "double", {"allowTemplateLiterals": true}],
+    //"quotes": ["error", "double", {"allowTemplateLiterals": true}],
     "linebreak-style": 0,
     "indent": "off",
     "spaced-comment": 0,
@@ -24,6 +24,13 @@ module.exports = {
     "padded-blocks": 0,
     "no-trailing-spaces": 0,
     "new-cap": 0,
+    "max-len": 0,
+    "no-unused-vars": 0,
+    "require-jsdoc": 0,
+    "key-spacing": 0,
+    "semi": 0,
+    "quotes": 0,
+    "object-curly-spacing": 0,
   },
   overrides: [
     {
