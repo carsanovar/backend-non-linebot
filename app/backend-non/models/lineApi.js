@@ -18,7 +18,8 @@ module.exports = {
       // ตัวอย่าง Message Type "Text"
       if (message === "คำนวณวันครบรอบ") {
 
-        const calDate = await fnLineApi.calulateDateFormStart(req);
+        // เรียกฟังก์ชั่นคำนวณวันครบรอบ
+        const calDate = fnLineApi.calulateDateFormStart(req);
 
         arrayPostData = {
           "replyToken": replyToken,
@@ -30,12 +31,16 @@ module.exports = {
           ]
         }
       } else {
+
+        // เรียกฟังก์ชั่น ai
+        const text = await fnLineApi.GenerativeAIChat(message);
+
         arrayPostData = {
           "replyToken": replyToken,
           "messages": [
             {
               "type": "text",
-              "text": "ไม่พบข้อมูล"
+              "text": text
             },
           ]
         }
