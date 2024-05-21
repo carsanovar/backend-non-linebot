@@ -36,7 +36,7 @@ const fnLineApi = {
     },
   },
   calulateDateFormStart(req) {
-    const strDate = req.params.date ? req.params.date : "2023-03-23";
+    const strDate = req.params.date ? req.params.date : "2017-03-23";
 
     // แปลงวันที่ในรูปแบบสตริงเป็นวัตถุ Date
     const inputDate = new Date(strDate);
