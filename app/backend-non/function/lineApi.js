@@ -10,7 +10,7 @@ const fnLineApi = {
 
         // ประกาศ option api
         const apiOtion = {
-          url: "https://api.line.me/v2/bot/message/reply",
+          url: `${process.env.LINE_API_URL}/v2/bot/message/reply`,
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -25,18 +25,18 @@ const fnLineApi = {
           .then((response) => {
             console.log("Response:", response);
             // ประมวลผลข้อมูลตามที่ต้องการ
-            resolve;
+            resolve(response);
           })
           .catch((error) => {
             console.error("Error:", error);
             // จัดการข้อผิดพลาดตามที่ต้องการ
-            reject;
+            reject(error);
           });
       });
     },
   },
   calulateDateFormStart(req) {
-    const strDate = req.params.date ? req.params.date : "2023-03-23";
+    const strDate = req.params.date ? req.params.date : "2017-03-23";
 
     // แปลงวันที่ในรูปแบบสตริงเป็นวัตถุ Date
     const inputDate = new Date(strDate);
